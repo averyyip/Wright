@@ -69,7 +69,7 @@ function sendText(sender, text) {
 }
 
 function sendCurLocation(sender, lat, long) {
-	let messageData = {lat: lat, long:long}
+	let messageData = {text: lat.toString() + " " + long.toString()}
 	request({
 		url: "https://graph.facebook.com/v2.6/me/messages",
 		qs : {access_token: token},
