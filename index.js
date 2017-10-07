@@ -36,14 +36,21 @@ app.post('/webhook/', function(req, res) {
 	for (let i = 0; i < messaging_events.length; i++) {
 		let event = messaging_events[i]
 		let sender = event.sender.id
-		if (event.message && event.message.text) {
-			askToDo(sender)
-		}
-		if (event.message && event.message.attachments && messageAttachments[0].payload.coordinates) {
-			//TODO: handle other attachments
-			let lat = event.message.attachments[0].payload.coordinates.lat
-			let lon = event.message.attachments[0].payload.coordinates.long
-			console.log(lat.toString() + " " + lon.toString())
+		let messageAttachments = event.message.attachments
+		if(event.message) {
+			if (event.message.text) {
+				if (event.message.text === "Tell me a joke") {
+					sendJoke(sender)
+				} else {
+					askToDo(sender)
+				}
+			}
+			else (messageAttachments && messageAttachments[0].payload.coordinates) {
+				//TODO: handle other attachments
+				let lat = event.message.attachments[0].payload.coordinates.lat
+				let lon = event.message.attachments[0].payload.coordinates.long
+				console.log(lat.toString() + " " + lon.toString())
+			}
 		}
 	}
 	res.sendStatus(200)
@@ -88,6 +95,24 @@ function sendText(sender, text) {
 		json: {
 			recipient: {id: sender},
 			message : messageData,
+		}
+	}, function(error, response, body) {
+		if (error) {
+			console.log("sending error")
+		} else if (response.body.error) {
+			console.log("response body error")
+		}
+	})
+}
+
+function sendJoke(sender) {
+	request({
+		url: "https://graph.facebook.com/v2.6/me/messages",
+		qs : {access_token: token},
+		method: "POST",
+		json: {
+			recipient: {id: sender},
+			message : "Your life",
 		}
 	}, function(error, response, body) {
 		if (error) {
