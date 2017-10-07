@@ -9,9 +9,8 @@ const app = express()
 
 app.set('port', (process.env.PORT || 5000))
 
-// Reads and stores Facebook api token
-var fs = require('file-system')
-const token = fs.readFileSync("token.txt", "utf8")
+// Loads Facebook key from Heroku configurations
+const token = process.env.KEY
 
 
 // Uses Json
