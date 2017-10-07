@@ -36,15 +36,22 @@ app.post('/webhook/', function(req, res) {
 	for (let i = 0; i < messaging_events.length; i++) {
 		let event = messaging_events[i]
 		let sender = event.sender.id
-		if (event.message && event.message.text) {
-			askToDo(sender)
+		let messageAttachments = event.message.attachments
+		if(event.message) {
+			if (event.message.text) {
+				if (event.message.text === "Tell me a joke") {
+					sendJoke(sender)
+				} else {
+					askToDo(sender)
+				}
+			}
+			else if (messageAttachments && messageAttachments[0].payload.coordinates) {
+				//TODO: handle other attachments
+				let lat = event.message.attachments[0].payload.coordinates.lat
+				let lon = event.message.attachments[0].payload.coordinates.long
+				console.log(lat.toString() + " " + lon.toString())
+			}
 		}
-		// if (event.message && event.message.attachments) {
-		// 	//TODO: handle other attachments
-		// 	let lat = event.message.attachments[0].payload.coordinates.lat
-		// 	let lon = event.message.attachments[0].payload.coordinates.long
-		// 	console.log(lat.toString() + " " + lon.toString())
-		// }
 	}
 	res.sendStatus(200)
 })
@@ -57,12 +64,16 @@ function askToDo(sender) {
 		json:{
 	    	recipient: {id: sender},
     		message: {
-    			text:"Please choose what to do next",	
+    			text:"Please send your location or manually type in a landmark near you",	
 	        	quick_replies:[
 	        		{
-	       			"content_type":"location",
-
-	      			}
+	       			"content_type":"location"
+	      			},
+	      			{
+        			"content_type":"text",
+        			"title":"Tell me a joke",
+        			"payload":"<POSTBACK_PAYLOAD>"
+      				}
         		]
         	}
         }
@@ -84,6 +95,26 @@ function sendText(sender, text) {
 		json: {
 			recipient: {id: sender},
 			message : messageData,
+		}
+	}, function(error, response, body) {
+		if (error) {
+			console.log("sending error")
+		} else if (response.body.error) {
+			console.log("response body error")
+		}
+	})
+}
+
+function sendJoke(sender) {
+	request({
+		url: "https://graph.facebook.com/v2.6/me/messages",
+		qs : {access_token: token},
+		method: "POST",
+		json: {
+			recipient: {id: sender},
+			message : {
+				text:"Your life"
+			}
 		}
 	}, function(error, response, body) {
 		if (error) {
