@@ -54,9 +54,8 @@ function askToDo(sender) {
 		qs : {access_token: token},
 		method: "POST",
 		json:{
-	    	"recipient": {
-        	"id": recipient_id},
-    		"message": {
+	    	recipient: {id: sender},
+    		message: {
 	        	"quick_replies": [
 	        		{
 	       			"content_type":"location"
