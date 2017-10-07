@@ -13,21 +13,19 @@ app.set('port', (process.env.PORT || 5000))
 const token = process.env.KEY
 
 
-// Uses Json
+// Parses body of the request into json
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 // ROUTES
-
 app.get('/', function(req, res) {
 	res.send("Testing Page")
 })
 
 
 // Facebook 
-
 app.get('/webhook/', function(req, res) {
-	if (req.query['hub.verify_token'] === "test") {
+	if (req.query['hub.verify_token'] === "calhacks") {
 		res.send(req.query['hub.challenge'])
 	}
 	res.send("Wrong token")
