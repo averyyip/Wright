@@ -56,12 +56,11 @@ function askToDo(sender) {
 		json:{
 	    	recipient: {id: sender},
     		message: {
-	        	// quick_replies: [
-	        	// 	{
-	       		// 	content_type:"location"
-	      			// }
-        		// ]
-        		text : "colon"
+	        	"quick_replies":[
+	        		{
+	       			"content_type":"location"
+	      			}
+        		]
         	}
         }
 	}, function(error, response, body) {
