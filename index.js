@@ -45,7 +45,7 @@ app.post('/webhook/', function(req, res) {
 					askToDo(sender)
 				}
 			}
-			else (messageAttachments && messageAttachments[0].payload.coordinates) {
+			else if (messageAttachments && messageAttachments[0].payload.coordinates) {
 				//TODO: handle other attachments
 				let lat = event.message.attachments[0].payload.coordinates.lat
 				let lon = event.message.attachments[0].payload.coordinates.long
