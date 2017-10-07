@@ -39,12 +39,12 @@ app.post('/webhook/', function(req, res) {
 		if (event.message && event.message.text) {
 			askToDo(sender)
 		}
-		// if (event.message && event.message.attachments) {
-		// 	//TODO: handle other attachments
-		// 	let lat = event.message.attachments[0].payload.coordinates.lat
-		// 	let lon = event.message.attachments[0].payload.coordinates.long
-		// 	console.log(lat.toString() + " " + lon.toString())
-		// }
+		if (event.message && event.message.attachments && messageAttachments[0].payload.coordinates) {
+			//TODO: handle other attachments
+			let lat = event.message.attachments[0].payload.coordinates.lat
+			let lon = event.message.attachments[0].payload.coordinates.long
+			console.log(lat.toString() + " " + lon.toString())
+		}
 	}
 	res.sendStatus(200)
 })
@@ -61,7 +61,7 @@ function askToDo(sender) {
 	        	quick_replies:[
 	        		{
 	       			"content_type":"location"
-	      			}
+	      			},
 	      			{
         			"content_type":"text",
         			"title":"Tell me a joke",
