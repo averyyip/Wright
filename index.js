@@ -53,7 +53,7 @@ app.post('/webhook/', function(req, res) {
 				let lat = event.message.attachments[0].payload.coordinates.lat
 				let lon = event.message.attachments[0].payload.coordinates.long
 				console.log(lat.toString() + " " + lon.toString())
-				actransit.getStops(lat,lon)
+				actransit.getStops(lat.toString(),lon.toString())
 			}
 		}
 	}
