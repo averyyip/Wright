@@ -2,7 +2,7 @@
 
 var request = new XMLHttpRequest();
 
-request.open("GET", "http://api.actransit.org/servicenotices/?token=BB71819FE155622579B298B9C09BC87D", false);
+request.open("GET", "http://api.actransit.org/transit/servicenotices/?token=BB71819FE155622579B298B9C09BC87D", false);
 
 var APIkey = "BB71819FE155622579B298B9C09BC87D";
 
