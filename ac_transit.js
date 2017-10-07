@@ -1,5 +1,5 @@
 //fed in location data
-var XMLHttpRequest = require("xmlhttprequest")
+var request = require("xmlhttprequest")
 var APIkey = "/?token=BB71819FE155622579B298B9C09BC87D";
 
 var actransit = {
