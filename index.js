@@ -65,6 +65,7 @@ function askToDo(sender) {
 	      			{
         			"content_type":"text",
         			"title":"Tell me a joke",
+        			"payload":"<POSTBACK_PAYLOAD>"
       				}
         		]
         	}
