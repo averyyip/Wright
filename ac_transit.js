@@ -7,8 +7,8 @@ var APIkey = "/?token=BB71819FE155622579B298B9C09BC87D";
 var actransit = {
 	getStops: function(lat, lon) {
 		request.open("GET", "http://api.actransit.org/transit/stops/" + lat + "/" + lon + "/" + "500" + "/" + APIkey, false);
-		console.log(request.status);
-		console.log(request.statusText);
+		console.log(request.response);
+		console.log(request.responseText);
 	},
 
 	getPredictions: function(stopid) {
