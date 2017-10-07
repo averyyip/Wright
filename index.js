@@ -41,8 +41,9 @@ app.post('/webhook/', function(req, res) {
 			sendText(sender, "Text echo: " + text.substring(0, 100))
 		}
 		if (event.message && event.message.attachments) {
-			lat = event.message.attachments[0].payload.coordinates.lat
-			lng = event.message.attachments[0].payload.coordinates.long
+			let lat = event.message.attachments[0].payload.coordinates.lat
+			let lng = event.message.attachments[0].payload.coordinates.
+			sendCurLocation(sender, lat, long)
 		}
 	}
 	res.sendStatus(200)
