@@ -57,12 +57,15 @@ function askToDo(sender) {
 		json:{
 	    	recipient: {id: sender},
     		message: {
-    			text:"Please choose what to do next",	
+    			text:"Please send your location or manually type in a landmark near you",	
 	        	quick_replies:[
 	        		{
-	       			"content_type":"location",
-
+	       			"content_type":"location"
 	      			}
+	      			{
+        			"content_type":"text",
+        			"title":"Tell me a joke",
+      				}
         		]
         	}
         }
