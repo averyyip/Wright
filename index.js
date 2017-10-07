@@ -39,11 +39,12 @@ app.post('/webhook/', function(req, res) {
 		if (event.message && event.message.text) {
 			askToDo(sender)
 		}
-		if (event.message && event.message.attachments) {
-			let lat = event.message.attachments[0].payload.coordinates.lat
-			let lon = event.message.attachments[0].payload.coordinates.long
-			console.log(lat.toString() + " " + lon.toString())
-		}
+		// if (event.message && event.message.attachments) {
+		// 	//TODO: handle other attachments
+		// 	let lat = event.message.attachments[0].payload.coordinates.lat
+		// 	let lon = event.message.attachments[0].payload.coordinates.long
+		// 	console.log(lat.toString() + " " + lon.toString())
+		// }
 	}
 	res.sendStatus(200)
 })
@@ -56,10 +57,11 @@ function askToDo(sender) {
 		json:{
 	    	recipient: {id: sender},
     		message: {
-    			text:"pls work",
+    			text:"Please choose what to do next",	
 	        	quick_replies:[
 	        		{
-	       			"content_type":"location"
+	       			"content_type":"location",
+
 	      			}
         		]
         	}
