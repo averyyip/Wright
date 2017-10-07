@@ -112,7 +112,9 @@ function sendJoke(sender) {
 		method: "POST",
 		json: {
 			recipient: {id: sender},
-			message : "Your life",
+			message : {
+				text:"Your life"
+			}
 		}
 	}, function(error, response, body) {
 		if (error) {
