@@ -56,6 +56,7 @@ function askToDo(sender) {
 		json:{
 	    	recipient: {id: sender},
     		message: {
+    			text:"pls work",
 	        	quick_replies:[
 	        		{
 	       			"content_type":"location"
