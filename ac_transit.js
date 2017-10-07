@@ -14,9 +14,11 @@ function getPredictions(stopid) {
 	//Gives all predictions
 	console.log(request.status);
 	console.log(request.statusText);
+	return 
 }
 
 function getBusPredictions(stopid, bus_number) {
 	var predictions = getPredictions(stopid);
+
 	//Sieve and cull the unnecessary routes
 }
