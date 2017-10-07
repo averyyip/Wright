@@ -37,8 +37,7 @@ app.post('/webhook/', function(req, res) {
 		let event = messaging_events[i]
 		let sender = event.sender.id
 		if (event.message && event.message.text) {
-			let text = event.message.text
-			sendText(sender, "Text echo: " + text.substring(0, 100))
+			askToDo(sender)
 		}
 		if (event.message && event.message.attachments) {
 			let lat = event.message.attachments[0].payload.coordinates.lat
@@ -49,16 +48,25 @@ app.post('/webhook/', function(req, res) {
 	res.sendStatus(200)
 })
 
-function sendText(sender, text) {
+function askToDo(sender) {
 	let messageData = {text: text}
 	request({
 		url: "https://graph.facebook.com/v2.6/me/messages",
 		qs : {access_token: token},
 		method: "POST",
-		json: {
-			recipient: {id: sender},
-			message : messageData,
-		}
+		json:{
+	    	"recipient": {
+        	"id": recipient_id},
+    		"message": {
+	        	"quick_replies": [
+	        		{
+	       			"content_type":"location"
+	      			}
+        		]
+        	}
+        }
+    }
+}
 	}, function(error, response, body) {
 		if (error) {
 			console.log("sending error")
@@ -68,8 +76,8 @@ function sendText(sender, text) {
 	})
 }
 
-function sendCurLocation(sender, lat, long) {
-	let messageData = {text: lat.toString() + " " + long.toString()}
+function sendText(sender, text) {
+	let messageData = {text: text}
 	request({
 		url: "https://graph.facebook.com/v2.6/me/messages",
 		qs : {access_token: token},
