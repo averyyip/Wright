@@ -65,8 +65,6 @@ function askToDo(sender) {
         		]
         	}
         }
-    }
-}
 	}, function(error, response, body) {
 		if (error) {
 			console.log("sending error")
