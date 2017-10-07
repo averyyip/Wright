@@ -40,12 +40,35 @@ app.post('/webhook/', function(req, res) {
 			let text = event.message.text
 			sendText(sender, "Text echo: " + text.substring(0, 100))
 		}
+		if (event.message && event.message.attachments) {
+			lat = event.message.attachments[0].payload.coordinates.lat
+			lng = event.message.attachments[0].payload.coordinates.long
+		}
 	}
 	res.sendStatus(200)
 })
 
 function sendText(sender, text) {
 	let messageData = {text: text}
+	request({
+		url: "https://graph.facebook.com/v2.6/me/messages",
+		qs : {access_token: token},
+		method: "POST",
+		json: {
+			recipient: {id: sender},
+			message : messageData,
+		}
+	}, function(error, response, body) {
+		if (error) {
+			console.log("sending error")
+		} else if (response.body.error) {
+			console.log("response body error")
+		}
+	})
+}
+
+function sendCurLocation(sender, lat, long) {
+	let messageData = {lat: lat, long:long}
 	request({
 		url: "https://graph.facebook.com/v2.6/me/messages",
 		qs : {access_token: token},
