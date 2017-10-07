@@ -9,7 +9,9 @@ const app = express()
 
 app.set('port', (process.env.PORT || 5000))
 
-//Dont forget reading token
+// Reads and stores Facebook api token
+var fs = require('fs'),
+const token = fs.readFileSync("token.txt")
 
 
 // Uses Json
