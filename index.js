@@ -49,7 +49,6 @@ app.post('/webhook/', function(req, res) {
 })
 
 function askToDo(sender) {
-	let messageData = {text: text}
 	request({
 		url: "https://graph.facebook.com/v2.6/me/messages",
 		qs : {access_token: token},
